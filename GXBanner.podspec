@@ -9,13 +9,13 @@
 Pod::Spec.new do |s|
 
   s.name         = "GXBanner"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.summary      = "一款简单又好用的广告banner."
   s.homepage     = "https://github.com/gsyhei/GXBanner"
   s.license      = "MIT"
   s.author       = { "Gin" => "279694479@qq.com" }
   s.platform     = :ios, "9.0"
-  s.source       = { :git => "https://github.com/gsyhei/GXBanner.git", :tag => "1.0.0" }
+  s.source       = { :git => "https://github.com/gsyhei/GXBanner.git", :tag => "1.0.1" }
   s.requires_arc = true
   s.source_files = "GXBanner"
   s.frameworks   = "Foundation","UIKit"
