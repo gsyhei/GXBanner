@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/gsyhei/GXBanner"
   s.license      = "MIT"
   s.author       = { "Gin" => "279694479@qq.com" }
-  s.platform     = :ios, "7.0"
+  s.platform     = :ios, "9.0"
   s.source       = { :git => "https://github.com/gsyhei/GXBanner.git", :tag => "1.0.0" }
   s.requires_arc = true
   s.source_files = "GXBanner"
