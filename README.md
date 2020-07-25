@@ -7,7 +7,7 @@
 先上个效果图
 --
 
-![](/GXTransition.gif)
+![](/GXBanner.gif)
 
 
 Requirements
