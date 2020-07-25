@@ -32,6 +32,7 @@ class GXBanner: UIView {
         let pageControl = UIPageControl()
         pageControl.pageIndicatorTintColor = UIColor.black
         pageControl.currentPageIndicatorTintColor = UIColor.white
+        pageControl.isHidden = true
         return pageControl
     }()
     
@@ -78,6 +79,7 @@ fileprivate extension GXBanner {
         let count = self.dataSource?.numberOfItems() ?? 0
         self.pageControl.numberOfPages = count
         guard count > 1 else { return count }
+        pageControl.isHidden = false
         return count + GXInsetCount * 2
     }
     func realIndex(index: Int) -> Int {

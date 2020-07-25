@@ -48,10 +48,13 @@ class GXBannerFlowLayout: UICollectionViewFlowLayout {
         for attributes in attributesArrayCopy {
             let distance = abs(attributes.center.x - centerX)
             let scale = distance/maxDistance * (self.minScale - 1) + 1
-            if scale < 1.0 {
+            attributes.zIndex = (distance >= maxDistance) ? 1 : 0
+            if attributesArrayCopy.count == 1 {
+                attributes.center = CGPoint(x: centerX, y: attributes.center.y)
+            }
+            else if scale < 1.0 {
                 attributes.transform3D = CATransform3DMakeScale(scale, scale, 1.0)
             }
-            attributes.zIndex = (distance >= maxDistance) ? 1 : 0
         }
         return attributesArrayCopy
     }
