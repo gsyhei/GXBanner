@@ -10,11 +10,11 @@ import UIKit
 
 protocol GXBannerDataSource: NSObjectProtocol {
     func numberOfItems() -> Int
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    func banner(_ banner: GXBanner, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
 }
 
 @objc protocol GXBannerDelegate: NSObjectProtocol {
-    @objc optional func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    @objc optional func banner(_ banner: GXBanner, didSelectItemAt indexPath: IndexPath)
     @objc optional func pageControl(currentPage page: Int)
 }
 
@@ -25,10 +25,10 @@ class GXBanner: UIView {
     private var flowLayout: GXBannerFlowLayout!
     weak var dataSource: GXBannerDataSource?
     weak var delegate: GXBannerDelegate?
-
+    
     var isAutoPlay: Bool = true
     var autoTimeInterval: TimeInterval = 5.0
-    lazy var pageControl: UIPageControl = {
+    private(set) lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.pageIndicatorTintColor = UIColor.black
         pageControl.currentPageIndicatorTintColor = UIColor.white
@@ -105,7 +105,7 @@ fileprivate extension GXBanner {
         }
         else if self.currentIndex >= (self.realNumberOfItems() + GXInsetCount) {
             self.currentIndex = GXInsetCount
-             self.scrollToItem(at: self.currentIndex, animated: false)
+            self.scrollToItem(at: self.currentIndex, animated: false)
         }
     }
     func bannerPlay() {
@@ -124,30 +124,47 @@ fileprivate extension GXBanner {
 }
 
 extension GXBanner {
-    func register(_ cellClass: AnyClass?, forCellWithReuseIdentifier identifier: String) {
-        self.collectionView.register(cellClass, forCellWithReuseIdentifier: identifier)
+    final func register<T: UICollectionViewCell>(classCellType: T.Type) {
+        let cellID = String(describing: classCellType)
+        self.collectionView.register(classCellType, forCellWithReuseIdentifier: cellID)
     }
-    func register(_ nib: UINib?, forCellWithReuseIdentifier identifier: String) {
-        self.collectionView.register(nib, forCellWithReuseIdentifier: identifier)
+    final func register<T: UICollectionViewCell>(nibCellType: T.Type) {
+        let cellID = String(describing: nibCellType)
+        let nib = UINib.init(nibName: cellID, bundle: nil)
+        self.collectionView.register(nib, forCellWithReuseIdentifier: cellID)
     }
-    func reloadData() {
+    final func dequeueReusableCell<T: UICollectionViewCell>(for indexPath: IndexPath, cellType: T.Type = T.self) -> T {
+        let cellID = String(describing: cellType)
+        let bareCell = self.collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
+        guard let cell = bareCell as? T else {
+            fatalError(
+                "Failed to dequeue a cell with identifier \(cellID) matching type \(cellType.self). "
+                    + "Check that the reuseIdentifier is set properly in your XIB/Storyboard "
+                    + "and that you registered the cell beforehand"
+            )
+        }
+        return cell
+    }
+    final func reloadData() {
         let count = self.dataSource?.numberOfItems() ?? 0
         self.collectionView.isUserInteractionEnabled = count > 1
         self.collectionView.reloadData()
         self.scrollToItem(realAt: 0, animated: true)
     }
-    func scrollToItem(realAt index: Int, animated: Bool) {
+    final func scrollToItem(realAt index: Int, animated: Bool) {
         let indexPath = self.indexPath(realIndex: index)
         self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: animated)
     }
-    func scrollToItem(at index: Int, animated: Bool) {
+    final func scrollToItem(at index: Int, animated: Bool) {
         let indexPath = IndexPath(item: index, section: 0)
         self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: animated)
         let currentPage = self.realIndex(index: index)
         if (delegate?.responds(to: #selector(delegate?.pageControl(currentPage:))))! {
             self.delegate?.pageControl?(currentPage: currentPage)
         } else {
-            self.pageControl.currentPage = currentPage
+            if self.pageControl.currentPage != currentPage {
+                self.pageControl.currentPage = currentPage
+            }
         }
     }
 }
@@ -159,13 +176,13 @@ extension GXBanner: UICollectionViewDataSource, UICollectionViewDelegate {
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let realIndexPath = self.realIndexPath(index: indexPath.item)
-        return self.dataSource?.collectionView(collectionView, cellForItemAt: realIndexPath) ?? UICollectionViewCell()
+        return self.dataSource?.banner(self, cellForItemAt: realIndexPath) ?? UICollectionViewCell()
     }
     // MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if (delegate?.responds(to: #selector(delegate?.collectionView(_:didSelectItemAt:))))! {
+        if (delegate?.responds(to: #selector(delegate?.banner(_:didSelectItemAt:))))! {
             let realIndexPath = self.realIndexPath(index: indexPath.item)
-            self.delegate?.collectionView?(collectionView, didSelectItemAt: realIndexPath)
+            self.delegate?.banner?(self, didSelectItemAt: realIndexPath)
         }
     }
 }

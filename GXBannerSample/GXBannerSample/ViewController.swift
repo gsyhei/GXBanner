@@ -32,7 +32,7 @@ class ViewController: UIViewController {
         self.banner.autoTimeInterval = 2.0
         self.banner.dataSource = self
         self.banner.delegate = self
-        self.banner.register(GXBannerTestCell.self, forCellWithReuseIdentifier: GXCellID)
+        self.banner.register(classCellType: GXBannerTestCell.self)
         self.banner.reloadData()
         
         self.view.addSubview(self.banner1)
@@ -40,26 +40,34 @@ class ViewController: UIViewController {
         self.banner1.autoTimeInterval = 2.0
         self.banner1.dataSource = self
         self.banner1.delegate = self
-        self.banner1.register(GXBannerTestCell.self, forCellWithReuseIdentifier: GXCellID)
+        self.banner1.register(classCellType: GXBannerTestCell.self)
         self.banner1.reloadData()
     }
 }
 
 extension ViewController: GXBannerDataSource, GXBannerDelegate {
+    
+    // MARK: - GXBannerDataSource
+    
     func numberOfItems() -> Int {
         return 3
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: GXBannerTestCell = collectionView.dequeueReusableCell(withReuseIdentifier: GXCellID, for: indexPath) as! GXBannerTestCell
+    func banner(_ banner: GXBanner, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell: GXBannerTestCell = banner.dequeueReusableCell(for: indexPath)
+        cell.contentView.layer.masksToBounds = true
+        cell.contentView.layer.cornerRadius = 10
         cell.contentView.backgroundColor = UIColor.red
+        cell.iconIView.image = UIImage(named: String(format: "banner%d.jpeg", indexPath.row))
         cell.textLabel.text = String(indexPath.row)
         
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+
+    // MARK: - GXBannerDelegate
+
+    func banner(_ banner: GXBanner, didSelectItemAt indexPath: IndexPath) {
+        NSLog("didSelectItemAt %d", indexPath.row)
     }
 }
 
