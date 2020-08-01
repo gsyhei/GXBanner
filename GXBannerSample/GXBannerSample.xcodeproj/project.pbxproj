@@ -10,6 +10,7 @@
 		335C06D924D4C9BE000C3B18 /* banner1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 335C06D624D4C9BE000C3B18 /* banner1.jpeg */; };
 		335C06DA24D4C9BE000C3B18 /* banner2.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 335C06D724D4C9BE000C3B18 /* banner2.jpeg */; };
 		335C06DB24D4C9BE000C3B18 /* banner0.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 335C06D824D4C9BE000C3B18 /* banner0.jpeg */; };
+		3380A24D24D5FF1A0018542C /* GXOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3380A24C24D5FF1A0018542C /* GXOneViewController.swift */; };
 		338E7D1424CB2DD40076C38D /* GXBannerTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338E7D1224CB2DD40076C38D /* GXBannerTestCell.swift */; };
 		339EDCE324C9284100EB9229 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339EDCE224C9284100EB9229 /* AppDelegate.swift */; };
 		339EDCE524C9284100EB9229 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339EDCE424C9284100EB9229 /* SceneDelegate.swift */; };
@@ -44,6 +45,7 @@
 		335C06D624D4C9BE000C3B18 /* banner1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = banner1.jpeg; sourceTree = "<group>"; };
 		335C06D724D4C9BE000C3B18 /* banner2.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = banner2.jpeg; sourceTree = "<group>"; };
 		335C06D824D4C9BE000C3B18 /* banner0.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = banner0.jpeg; sourceTree = "<group>"; };
+		3380A24C24D5FF1A0018542C /* GXOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GXOneViewController.swift; sourceTree = "<group>"; };
 		338E7D1224CB2DD40076C38D /* GXBannerTestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GXBannerTestCell.swift; sourceTree = "<group>"; };
 		339EDCDF24C9284100EB9229 /* GXBannerSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GXBannerSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		339EDCE224C9284100EB9229 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				339EDD1224C9292700EB9229 /* GXBanner */,
 				339EDCE224C9284100EB9229 /* AppDelegate.swift */,
 				339EDCE424C9284100EB9229 /* SceneDelegate.swift */,
+				3380A24C24D5FF1A0018542C /* GXOneViewController.swift */,
 				339EDCE624C9284100EB9229 /* ViewController.swift */,
 				338E7D1224CB2DD40076C38D /* GXBannerTestCell.swift */,
 				339EDCE824C9284100EB9229 /* Main.storyboard */,
@@ -300,6 +303,7 @@
 				339EDD1624CA106400EB9229 /* GXBanner.swift in Sources */,
 				339EDCE724C9284100EB9229 /* ViewController.swift in Sources */,
 				338E7D1424CB2DD40076C38D /* GXBannerTestCell.swift in Sources */,
+				3380A24D24D5FF1A0018542C /* GXOneViewController.swift in Sources */,
 				339EDCE324C9284100EB9229 /* AppDelegate.swift in Sources */,
 				339EDD1424C9DAA700EB9229 /* GXBannerFlowLayout.swift in Sources */,
 				339EDCE524C9284100EB9229 /* SceneDelegate.swift in Sources */,

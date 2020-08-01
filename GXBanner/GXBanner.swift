@@ -36,6 +36,10 @@ class GXBanner: UIView {
         return pageControl
     }()
     
+    deinit {
+        self.bannerStop()
+    }
+    
     required init(frame: CGRect = .zero, margin: CGFloat = 0, lineSpacing: CGFloat = 0, minScale: CGFloat = 0.9) {
         super.init(frame: frame)
         self.flowLayout = GXBannerFlowLayout(margin: margin, lineSpacing: lineSpacing, minScale: minScale)

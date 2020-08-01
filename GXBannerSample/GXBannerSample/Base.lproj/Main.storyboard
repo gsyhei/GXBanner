@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MzB-JL-hIF">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -7,7 +7,42 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--GXBanner-->
+        <scene sceneID="rfB-X6-0au">
+            <objects>
+                <viewController id="jd1-44-s48" customClass="GXOneViewController" customModule="GXBannerSample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rpD-5u-rHO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3qO-0K-a3j">
+                                <rect key="frame" x="110.5" y="415" width="193" height="66"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="66" id="RQp-P2-vdh"/>
+                                    <constraint firstAttribute="width" constant="193" id="kMq-G7-oSW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <state key="normal" title="Goto"/>
+                                <connections>
+                                    <action selector="gotoButtonClicked:" destination="jd1-44-s48" eventType="touchUpInside" id="AM9-E5-OCI"/>
+                                    <segue destination="BYZ-38-t0r" kind="push" id="WRS-6l-9ru"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="3qO-0K-a3j" firstAttribute="centerX" secondItem="rpD-5u-rHO" secondAttribute="centerX" id="RyW-49-4U0"/>
+                            <constraint firstItem="3qO-0K-a3j" firstAttribute="centerY" secondItem="rpD-5u-rHO" secondAttribute="centerY" id="pHe-BQ-kbP"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bhb-TF-3yi"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="GXBanner" id="t2U-Qd-Exg"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KTm-CT-HVU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-130" y="100"/>
+        </scene>
+        <!--GXBanner-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="GXBannerSample" customModuleProvider="target" sceneMemberID="viewController">
@@ -17,10 +52,29 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" title="GXBanner" id="UZQ-eW-pYP"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="102"/>
+            <point key="canvasLocation" x="1191" y="100"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="7Wt-Kd-CEx">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MzB-JL-hIF" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pGl-om-gZe">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="jd1-44-s48" kind="relationship" relationship="rootViewController" id="Yba-YX-mOb"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AWQ-6j-Xnj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1061" y="124"/>
         </scene>
     </scenes>
 </document>

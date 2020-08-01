@@ -12,6 +12,10 @@ let GXCellID = NSStringFromClass(GXBannerTestCell.classForCoder())
 
 class ViewController: UIViewController {
     
+    deinit {
+        NSLog("ViewController deinit.")
+    }
+    
     private var banner: GXBanner = {
         let width = UIScreen.main.bounds.size.width
         let frame: CGRect = CGRect(x: 0, y: 100, width: width, height: 120)
