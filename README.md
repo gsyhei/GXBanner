@@ -7,9 +7,7 @@
 先上个效果图
 --
 
-![](https://raw.github.com/gsyhei/GXBanner/blob/master/GXBanner.gif)
-<img src="https://raw.github.com/gsyhei/GXBanner/blob/master/GXBanner.gif" width="320"><br/>
-
+![image](https://raw.github.com/gsyhei/GXBanner/blob/master/GXBanner.gif)
 
 Requirements
 --
