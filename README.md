@@ -28,36 +28,31 @@ pod 'GXBanner'
 
 ```objc
 
+// 创建
 private var banner: GXBanner = {
     let width = UIScreen.main.bounds.size.width
     let frame: CGRect = CGRect(x: 0, y: 100, width: width, height: 120)
     return GXBanner(frame: frame, margin: 60, minScale: 0.8)
 }()
 
+// 设置
 self.view.addSubview(self.banner)
 self.banner.backgroundColor = UIColor.green
 self.banner.autoTimeInterval = 2.0
 self.banner.dataSource = self
 self.banner.delegate = self
-self.banner.register(GXBannerTestCell.self, forCellWithReuseIdentifier: GXCellID)
+self.banner.register(classCellType: GXBannerTestCell.self)
 self.banner.reloadData()
 
-extension ViewController: GXBannerDataSource, GXBannerDelegate {
-    func numberOfItems() -> Int {
-        return 3
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: GXBannerTestCell = collectionView.dequeueReusableCell(withReuseIdentifier: GXCellID, for: indexPath) as! GXBannerTestCell
-        cell.contentView.backgroundColor = UIColor.red
-        cell.textLabel.text = String(indexPath.row)
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-    }
+// 代理
+protocol GXBannerDataSource: NSObjectProtocol {
+    func numberOfItems() -> Int
+    func banner(_ banner: GXBanner, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+}
+
+@objc protocol GXBannerDelegate: NSObjectProtocol {
+    @objc optional func banner(_ banner: GXBanner, didSelectItemAt indexPath: IndexPath)
+    @objc optional func pageControl(currentPage page: Int)
 }
 
 ```
