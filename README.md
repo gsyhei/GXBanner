@@ -26,7 +26,7 @@ pod 'GXBanner'
 --
 首先import GXBanner，然后直接使用扩展方法就行，是不是很简单😁。
 
-```objc
+```swift
 
 // 创建
 private var banner: GXBanner = {
