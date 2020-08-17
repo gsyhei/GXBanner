@@ -15,17 +15,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3qO-0K-a3j">
-                                <rect key="frame" x="110.5" y="415" width="193" height="66"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3qO-0K-a3j">
+                                <rect key="frame" x="178.5" y="415" width="57" height="66"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="66" id="RQp-P2-vdh"/>
-                                    <constraint firstAttribute="width" constant="193" id="kMq-G7-oSW"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                <state key="normal" title="Goto"/>
+                                <state key="normal" title="Goto">
+                                    <color key="titleColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="gotoButtonClicked:" destination="jd1-44-s48" eventType="touchUpInside" id="AM9-E5-OCI"/>
-                                    <segue destination="BYZ-38-t0r" kind="push" id="WRS-6l-9ru"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="WRS-6l-9ru"/>
                                 </connections>
                             </button>
                         </subviews>

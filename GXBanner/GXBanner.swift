@@ -40,7 +40,7 @@ class GXBanner: UIView {
         self.bannerStop()
     }
     
-    required init(frame: CGRect = .zero, margin: CGFloat = 0, lineSpacing: CGFloat = 0, minScale: CGFloat = 0.9) {
+    required init(frame: CGRect = .zero, margin: CGFloat = 0, lineSpacing: CGFloat = 0, minScale: Scale = Scale()) {
         super.init(frame: frame)
         self.flowLayout = GXBannerFlowLayout(margin: margin, lineSpacing: lineSpacing, minScale: minScale)
         self.setupSubviews()
@@ -158,6 +158,13 @@ extension GXBanner {
     final func scrollToItem(realAt index: Int, animated: Bool) {
         let indexPath = self.indexPath(realIndex: index)
         self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: animated)
+        if (delegate?.responds(to: #selector(delegate?.pageControl(currentPage:))))! {
+            self.delegate?.pageControl?(currentPage: index)
+        } else {
+            if self.pageControl.currentPage != index {
+                self.pageControl.currentPage = index
+            }
+        }
     }
     final func scrollToItem(at index: Int, animated: Bool) {
         let indexPath = IndexPath(item: index, section: 0)

@@ -11,7 +11,9 @@ import UIKit
 class GXBannerTestCell: UICollectionViewCell {
     
     lazy var iconIView: UIImageView = {
-        return UIImageView()
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFill
+        return iv
     }()
     
     lazy var textLabel: UILabel = {

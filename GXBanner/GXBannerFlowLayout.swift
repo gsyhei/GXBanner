@@ -8,12 +8,27 @@
 
 import UIKit
 
+extension GXBanner {
+    struct Scale {
+        var scaleX: CGFloat!
+        var scaleY: CGFloat!
+        
+        init(scale: CGFloat) {
+            self.scaleX = scale
+            self.scaleY = scale
+        }
+        init(sx: CGFloat = 1.0, sy: CGFloat = 1.0) {
+            self.scaleX = sx
+            self.scaleY = sy
+        }
+    }
+}
 class GXBannerFlowLayout: UICollectionViewFlowLayout {
     var margin: CGFloat = 0
     var lineSpacing: CGFloat = 0
-    var minScale: CGFloat = 0.9
-
-    required init(margin: CGFloat = 0, lineSpacing: CGFloat = 0, minScale: CGFloat = 0.9) {
+    var minScale: GXBanner.Scale = GXBanner.Scale()
+    
+    required init(margin: CGFloat = 0, lineSpacing: CGFloat = 0, minScale: GXBanner.Scale) {
         super.init()
         self.margin = margin
         self.lineSpacing = lineSpacing
@@ -31,12 +46,18 @@ class GXBannerFlowLayout: UICollectionViewFlowLayout {
         self.minimumLineSpacing = self.lineSpacing
         self.itemSize = self.itemSize()
     }
-
+    
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+        guard self.minScale.scaleX < 1 || self.minScale.scaleX != self.minScale.scaleY else {
+            return super.shouldInvalidateLayout(forBoundsChange: newBounds)
+        }
         return true
     }
-    
+
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        guard self.minScale.scaleX < 1 || self.minScale.scaleX != self.minScale.scaleY else {
+            return super.layoutAttributesForElements(in: rect)
+        }
         let layoutArray: [UICollectionViewLayoutAttributes] = super.layoutAttributesForElements(in: rect) ?? []
         var attributesArrayCopy = [UICollectionViewLayoutAttributes]()
         for attributes in layoutArray {
@@ -47,20 +68,33 @@ class GXBannerFlowLayout: UICollectionViewFlowLayout {
         let maxDistance = self.itemSize.width + self.minimumLineSpacing
         for attributes in attributesArrayCopy {
             let distance = abs(attributes.center.x - centerX)
-            let scale = distance/maxDistance * (self.minScale - 1) + 1
-            attributes.zIndex = (distance >= maxDistance) ? 1 : 0
-            if attributesArrayCopy.count == 1 {
-                attributes.center = CGPoint(x: centerX, y: attributes.center.y)
+            if self.minScale.scaleX == self.minScale.scaleY {
+                let scale = distance/maxDistance * (self.minScale.scaleX - 1) + 1
+                attributes.zIndex = (distance >= maxDistance) ? 1 : 0
+                if attributesArrayCopy.count == 1 {
+                    attributes.center = CGPoint(x: centerX, y: attributes.center.y)
+                }
+                else if scale < 1.0 {
+                    attributes.transform = CGAffineTransform(scaleX: scale, y: scale)
+                }
             }
-            else if scale < 1.0 {
-                attributes.transform3D = CATransform3DMakeScale(scale, scale, 1.0)
+            else {
+                let scaleX = distance/maxDistance * (self.minScale.scaleX - 1) + 1
+                let scaleY = distance/maxDistance * (self.minScale.scaleY - 1) + 1
+                let scale = GXBanner.Scale(sx: scaleX, sy: scaleY)
+                attributes.zIndex = (distance >= maxDistance) ? 1 : 0
+                if attributesArrayCopy.count == 1 {
+                    attributes.center = CGPoint(x: centerX, y: attributes.center.y)
+                }
+                else if scaleX < 1.0 {
+                    let xHeight = self.itemSize.width * (1 - scale.scaleX) * 0.5
+                    let yHeight = self.itemSize.height * (1 - scale.scaleY) * 0.5
+                    let insets = UIEdgeInsets(top: yHeight, left: xHeight, bottom: yHeight, right: xHeight)
+                    attributes.frame = attributes.frame.inset(by: insets)
+                }
             }
         }
         return attributesArrayCopy
-    }
-
-    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
-        return proposedContentOffset
     }
 }
 

@@ -19,13 +19,19 @@ class ViewController: UIViewController {
     private var banner: GXBanner = {
         let width = UIScreen.main.bounds.size.width
         let frame: CGRect = CGRect(x: 0, y: 100, width: width, height: 120)
-        return GXBanner(frame: frame, margin: 60, minScale: 0.8)
+        return GXBanner(frame: frame, margin: 60, minScale: GXBanner.Scale(sx: 0.9, sy: 0.7))
     }()
     
     private var banner1: GXBanner = {
         let width = UIScreen.main.bounds.size.width
-        let frame: CGRect = CGRect(x: 0, y: 300, width: width, height: 120)
-        return GXBanner(frame: frame, margin: 0, minScale: 1.0)
+        let frame: CGRect = CGRect(x: 0, y: 250, width: width, height: 120)
+        return GXBanner(frame: frame, margin: 60, minScale: GXBanner.Scale(scale: 0.8))
+    }()
+    
+    private var banner2: GXBanner = {
+        let width = UIScreen.main.bounds.size.width
+        let frame: CGRect = CGRect(x: 0, y: 400, width: width, height: 120)
+        return GXBanner(frame: frame, margin: 0, lineSpacing: 10)
     }()
 
     override func viewDidLoad() {
@@ -40,12 +46,20 @@ class ViewController: UIViewController {
         self.banner.reloadData()
         
         self.view.addSubview(self.banner1)
-        self.banner1.backgroundColor = UIColor.purple
+        self.banner1.backgroundColor = UIColor.green
         self.banner1.autoTimeInterval = 2.0
         self.banner1.dataSource = self
         self.banner1.delegate = self
         self.banner1.register(classCellType: GXBannerTestCell.self)
         self.banner1.reloadData()
+        
+        self.view.addSubview(self.banner2)
+        self.banner2.backgroundColor = UIColor.purple
+        self.banner2.autoTimeInterval = 2.0
+        self.banner2.dataSource = self
+        self.banner2.delegate = self
+        self.banner2.register(classCellType: GXBannerTestCell.self)
+        self.banner2.reloadData()
     }
 }
 
