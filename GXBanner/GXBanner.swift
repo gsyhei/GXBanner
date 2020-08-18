@@ -158,7 +158,7 @@ extension GXBanner {
     final func scrollToItem(realAt index: Int, animated: Bool) {
         let indexPath = self.indexPath(realIndex: index)
         self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: animated)
-        if (delegate?.responds(to: #selector(delegate?.pageControl(currentPage:))))! {
+        if (delegate?.responds(to: #selector(delegate?.pageControl(currentPage:))) ?? false) {
             self.delegate?.pageControl?(currentPage: index)
         } else {
             if self.pageControl.currentPage != index {
@@ -170,7 +170,7 @@ extension GXBanner {
         let indexPath = IndexPath(item: index, section: 0)
         self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: animated)
         let currentPage = self.realIndex(index: index)
-        if (delegate?.responds(to: #selector(delegate?.pageControl(currentPage:))))! {
+        if (delegate?.responds(to: #selector(delegate?.pageControl(currentPage:))) ?? false) {
             self.delegate?.pageControl?(currentPage: currentPage)
         } else {
             if self.pageControl.currentPage != currentPage {
@@ -191,7 +191,7 @@ extension GXBanner: UICollectionViewDataSource, UICollectionViewDelegate {
     }
     // MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if (delegate?.responds(to: #selector(delegate?.banner(_:didSelectItemAt:))))! {
+        if (delegate?.responds(to: #selector(delegate?.banner(_:didSelectItemAt:))) ?? false) {
             let realIndexPath = self.realIndexPath(index: indexPath.item)
             self.delegate?.banner?(self, didSelectItemAt: realIndexPath)
         }
