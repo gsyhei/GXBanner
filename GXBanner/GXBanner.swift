@@ -28,6 +28,12 @@ class GXBanner: UIView {
     
     var isAutoPlay: Bool = true
     var autoTimeInterval: TimeInterval = 5.0
+    var isShowPageControl: Bool = true {
+        didSet {
+            self.pageControl.isHidden = !self.isShowPageControl
+        }
+    }
+    
     private(set) lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.pageIndicatorTintColor = UIColor.black
@@ -82,8 +88,8 @@ fileprivate extension GXBanner {
     func numberOfItems() -> Int {
         let count = self.dataSource?.numberOfItems() ?? 0
         self.pageControl.numberOfPages = count
+        self.pageControl.isHidden = !self.isShowPageControl
         guard count > 1 else { return count }
-        pageControl.isHidden = false
         return count + GXInsetCount * 2
     }
     func realIndex(index: Int) -> Int {

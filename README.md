@@ -1,19 +1,24 @@
 # GXBanner
 一个基于UICollectionView易用易扩展的banner。
 备注：开发这一些列分类皆在于提高开发的效率以及改善代码的可读性和重用性，以此献上共勉！
+有建议可以联系QQ交流群:1101980843，喜欢就给个star哦，谢谢关注！
+<p align="center">
+<img src="https://github.com/gsyhei/GXCardView-Swift/blob/master/QQ.jpeg">
+</p>
 
-# 喜欢就给个star哦，QQ：279694479。没工作无聊写点东西玩儿！
-
-先上个效果图
+先上Demo效果图
 --
-
-![image](https://github.com/gsyhei/GXBanner/blob/master/GXBanner.gif)
+<p align="center">
+<img src="https://github.com/gsyhei/GXBanner/blob/master/GXBanner.gif">
+</p>
 
 Requirements
 --
-- iOS 9.0 or later
-- Xcode 10.0 or later
-- Swift 5
+<p align="left">
+<a href="https://github.com/gsyhei/GXBanner"><img src="https://img.shields.io/badge/platform-ios%209.0-yellow.svg"></a>
+<a href="https://github.com/gsyhei/GXBanner"><img src="https://img.shields.io/github/license/johnlui/Pitaya.svg?style=flat"></a>
+<a href="https://github.com/gsyhei/GXBanner"><img src="https://img.shields.io/badge/language-Swift%204.2-orange.svg"></a>
+</p>
 
 Usage in you Podfile:
 --
