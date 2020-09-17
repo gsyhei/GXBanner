@@ -236,14 +236,12 @@ extension GXBanner: UIScrollViewDelegate {
         }
     }
     func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        scrollView.isPagingEnabled = false
         self.scrollToItem(at: self.currentIndex, animated: true)
     }
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         scrollView.isPagingEnabled = false
         self.checkRealOutOfBounds()
         self.bannerPlay()
-    }
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        scrollView.isPagingEnabled = false
     }
 }
