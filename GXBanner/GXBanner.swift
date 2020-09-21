@@ -8,18 +8,18 @@
 
 import UIKit
 
-protocol GXBannerDataSource: NSObjectProtocol {
+public protocol GXBannerDataSource: NSObjectProtocol {
     func numberOfItems() -> Int
     func banner(_ banner: GXBanner, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
 }
 
-@objc protocol GXBannerDelegate: NSObjectProtocol {
+@objc public protocol GXBannerDelegate: NSObjectProtocol {
     @objc optional func banner(_ banner: GXBanner, didSelectItemAt indexPath: IndexPath)
     @objc optional func pageControl(currentPage page: Int)
 }
 
 private let GXInsetCount: Int = 2
-class GXBanner: UIView {
+public class GXBanner: UIView {
     private var currentIndex: Int = GXInsetCount
     private var collectionView: UICollectionView!
     private var flowLayout: GXBannerFlowLayout!
@@ -56,7 +56,7 @@ class GXBanner: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         self.collectionView.frame = self.bounds
         var center = self.center
@@ -133,7 +133,7 @@ fileprivate extension GXBanner {
     }
 }
 
-extension GXBanner {
+public extension GXBanner {
     final func register<T: UICollectionViewCell>(classCellType: T.Type) {
         let cellID = String(describing: classCellType)
         self.collectionView.register(classCellType, forCellWithReuseIdentifier: cellID)
@@ -188,31 +188,31 @@ extension GXBanner {
 
 extension GXBanner: UICollectionViewDataSource, UICollectionViewDelegate {
     // MARK: - UICollectionViewDataSource
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.numberOfItems()
     }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let realIndexPath = self.realIndexPath(index: indexPath.item)
         return self.dataSource?.banner(self, cellForItemAt: realIndexPath) ?? UICollectionViewCell()
     }
     // MARK: - UICollectionViewDelegate
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if (delegate?.responds(to: #selector(delegate?.banner(_:didSelectItemAt:))) ?? false) {
             let realIndexPath = self.realIndexPath(index: indexPath.item)
             self.delegate?.banner?(self, didSelectItemAt: realIndexPath)
         }
     }
 }
-
+ 
 extension GXBanner: UIScrollViewDelegate {
     // MARK: - UIScrollViewDelegate
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         scrollView.isPagingEnabled = true
         self.bannerStop()
     }
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
     }
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         if(velocity.x > 0) {
             self.currentIndex += 1
         }
@@ -235,11 +235,11 @@ extension GXBanner: UIScrollViewDelegate {
             }
         }
     }
-    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+    public func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         scrollView.isPagingEnabled = false
         self.scrollToItem(at: self.currentIndex, animated: true)
     }
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         scrollView.isPagingEnabled = false
         self.checkRealOutOfBounds()
         self.bannerPlay()

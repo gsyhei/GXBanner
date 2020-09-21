@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension GXBanner {
+public extension GXBanner {
     struct Scale {
         var scaleX: CGFloat!
         var scaleY: CGFloat!
@@ -23,7 +23,7 @@ extension GXBanner {
         }
     }
 }
-class GXBannerFlowLayout: UICollectionViewFlowLayout {
+public class GXBannerFlowLayout: UICollectionViewFlowLayout {
     var margin: CGFloat = 0
     var lineSpacing: CGFloat = 0
     var minScale: GXBanner.Scale = GXBanner.Scale()
@@ -39,7 +39,7 @@ class GXBannerFlowLayout: UICollectionViewFlowLayout {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func prepare() {
+    public override func prepare() {
         super.prepare()
         self.scrollDirection = .horizontal
         self.minimumInteritemSpacing = 0
@@ -47,14 +47,14 @@ class GXBannerFlowLayout: UICollectionViewFlowLayout {
         self.itemSize = self.itemSize()
     }
     
-    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+    public override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         guard self.minScale.scaleX < 1 || self.minScale.scaleX != self.minScale.scaleY else {
             return super.shouldInvalidateLayout(forBoundsChange: newBounds)
         }
         return true
     }
 
-    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+    public override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         guard self.minScale.scaleX < 1 || self.minScale.scaleX != self.minScale.scaleY else {
             return super.layoutAttributesForElements(in: rect)
         }
