@@ -38,7 +38,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         self.view.addSubview(self.banner)
-        self.banner.backgroundColor = UIColor.green
+        self.banner.backgroundColor = UIColor.black
         self.banner.autoTimeInterval = 2.0
         self.banner.dataSource = self
         self.banner.delegate = self

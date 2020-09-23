@@ -43,7 +43,7 @@ public class GXBanner: UIView {
         let pageControl = UIPageControl()
         pageControl.pageIndicatorTintColor = UIColor.black
         pageControl.currentPageIndicatorTintColor = UIColor.white
-        pageControl.isHidden = true
+        pageControl.addTarget(self, action: #selector(self.pageControlChanged(_:)), for: .valueChanged)
         return pageControl
     }()
     
@@ -93,10 +93,15 @@ fileprivate extension GXBanner {
     }
     func numberOfItems() -> Int {
         let count = self.dataSource?.numberOfItems() ?? 0
-        self.pageControl.numberOfPages = count
-        self.pageControl.isHidden = !self.isShowPageControl
-        guard count > 1 else { return count }
-        return count + GXInsetCount * 2
+        if count > 1 {
+            self.pageControl.numberOfPages = count
+            self.pageControl.isHidden = !self.isShowPageControl
+            return count + GXInsetCount * 2
+        }
+        else {
+            self.pageControl.isHidden = true
+            return count
+        }
     }
     func realIndex(index: Int) -> Int {
         let count = self.dataSource?.numberOfItems() ?? 0
@@ -114,6 +119,15 @@ fileprivate extension GXBanner {
     func indexPath(realIndex: Int) -> IndexPath {
         return IndexPath(item: self.index(realIndex: realIndex), section: 0)
     }
+    func setCurrentPage(_ page: Int) {
+        if (delegate?.responds(to: #selector(delegate?.pageControl(currentPage:))) ?? false) {
+            self.delegate?.pageControl?(currentPage: page)
+        } else {
+            if self.pageControl.currentPage != page {
+                self.pageControl.currentPage = page
+            }
+        }
+    }
     func checkRealOutOfBounds() {
         if self.currentIndex <= (GXInsetCount - 1) {
             self.currentIndex = self.realNumberOfItems() + GXInsetCount - 1
@@ -130,6 +144,10 @@ fileprivate extension GXBanner {
     }
     func bannerStop() {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
+    }
+    @objc func pageControlChanged(_ sender: UIPageControl) {
+        self.bannerStop()
+        self.scrollToItem(realAt: sender.currentPage, animated: true)
     }
     @objc func bannerScrollNext() {
         guard self.isAutoPlay && self.realNumberOfItems() > 1 else { return }
@@ -170,25 +188,13 @@ public extension GXBanner {
     final func scrollToItem(realAt index: Int, animated: Bool) {
         let indexPath = self.indexPath(realIndex: index)
         self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: animated)
-        if (delegate?.responds(to: #selector(delegate?.pageControl(currentPage:))) ?? false) {
-            self.delegate?.pageControl?(currentPage: index)
-        } else {
-            if self.pageControl.currentPage != index {
-                self.pageControl.currentPage = index
-            }
-        }
+        self.setCurrentPage(index)
     }
     final func scrollToItem(at index: Int, animated: Bool) {
         let indexPath = IndexPath(item: index, section: 0)
         self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: animated)
-        let currentPage = self.realIndex(index: index)
-        if (delegate?.responds(to: #selector(delegate?.pageControl(currentPage:))) ?? false) {
-            self.delegate?.pageControl?(currentPage: currentPage)
-        } else {
-            if self.pageControl.currentPage != currentPage {
-                self.pageControl.currentPage = currentPage
-            }
-        }
+        let page = self.realIndex(index: index)
+        self.setCurrentPage(page)
     }
 }
 
@@ -251,3 +257,4 @@ extension GXBanner: UIScrollViewDelegate {
         self.bannerPlay()
     }
 }
+
