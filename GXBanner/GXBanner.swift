@@ -33,6 +33,11 @@ public class GXBanner: UIView {
             self.pageControl.isHidden = !self.isShowPageControl
         }
     }
+    public override var backgroundColor: UIColor? {
+        didSet {
+            self.collectionView.backgroundColor = self.backgroundColor
+        }
+    }
     
     private(set) lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
