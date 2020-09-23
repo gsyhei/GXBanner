@@ -71,6 +71,7 @@ public class GXBanner: UIView {
     
     private func setupSubviews() {
         self.collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: self.flowLayout)
+        self.collectionView.backgroundColor = .clear
         self.collectionView.isScrollEnabled = true
         self.collectionView.isPagingEnabled = false
         self.collectionView.showsVerticalScrollIndicator = false
