@@ -43,6 +43,7 @@ public class GXBanner: UIView {
         let pageControl = UIPageControl()
         pageControl.pageIndicatorTintColor = UIColor.black
         pageControl.currentPageIndicatorTintColor = UIColor.white
+        pageControl.hidesForSinglePage = true
         pageControl.addTarget(self, action: #selector(self.pageControlChanged(_:)), for: .valueChanged)
         return pageControl
     }()
@@ -64,6 +65,9 @@ public class GXBanner: UIView {
     public override func layoutSubviews() {
         super.layoutSubviews()
         self.collectionView.frame = self.bounds
+        var size = self.pageControl.size(forNumberOfPages: self.pageControl.numberOfPages)
+        size.width = min(self.flowLayout.itemSize.width, size.width)
+        self.pageControl.frame = CGRect(origin: .zero, size: size)
         var center = self.center
         center.y = self.flowLayout.itemSize.height - self.pageControl.frame.height * 0.5
         self.pageControl.center = center
@@ -79,10 +83,6 @@ public class GXBanner: UIView {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         self.addSubview(self.collectionView)
-        
-        let w = self.self.flowLayout.itemSize.width, h: CGFloat = 20.0
-        let x = self.flowLayout.margin, y = self.flowLayout.itemSize.height - h
-        self.pageControl.frame = CGRect(x: x, y: y, width: w, height: h)
         self.addSubview(self.pageControl)
     }
 }
@@ -93,15 +93,9 @@ fileprivate extension GXBanner {
     }
     func numberOfItems() -> Int {
         let count = self.dataSource?.numberOfItems() ?? 0
-        if count > 1 {
-            self.pageControl.numberOfPages = count
-            self.pageControl.isHidden = !self.isShowPageControl
-            return count + GXInsetCount * 2
-        }
-        else {
-            self.pageControl.isHidden = true
-            return count
-        }
+        self.pageControl.numberOfPages = count
+        guard count > 1 else { return count }
+        return count + GXInsetCount * 2
     }
     func realIndex(index: Int) -> Int {
         let count = self.dataSource?.numberOfItems() ?? 0
