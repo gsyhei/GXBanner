@@ -13,22 +13,22 @@ public extension GXBanner {
         var scaleX: CGFloat!
         var scaleY: CGFloat!
         
-        init(scale: CGFloat) {
+        public init(scale: CGFloat) {
             self.scaleX = scale
             self.scaleY = scale
         }
-        init(sx: CGFloat = 1.0, sy: CGFloat = 1.0) {
+        public init(sx: CGFloat = 1.0, sy: CGFloat = 1.0) {
             self.scaleX = sx
             self.scaleY = sy
         }
     }
 }
 public class GXBannerFlowLayout: UICollectionViewFlowLayout {
-    var margin: CGFloat = 0
-    var lineSpacing: CGFloat = 0
-    var minScale: GXBanner.Scale = GXBanner.Scale()
+    public var margin: CGFloat = 0
+    public var lineSpacing: CGFloat = 0
+    public var minScale: GXBanner.Scale = GXBanner.Scale()
     
-    required init(margin: CGFloat = 0, lineSpacing: CGFloat = 0, minScale: GXBanner.Scale) {
+    public required init(margin: CGFloat = 0, lineSpacing: CGFloat = 0, minScale: GXBanner.Scale) {
         super.init()
         self.margin = margin
         self.lineSpacing = lineSpacing

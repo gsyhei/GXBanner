@@ -23,12 +23,12 @@ public class GXBanner: UIView {
     private var currentIndex: Int = GXInsetCount
     private var collectionView: UICollectionView!
     private var flowLayout: GXBannerFlowLayout!
-    weak var dataSource: GXBannerDataSource?
-    weak var delegate: GXBannerDelegate?
+    public weak var dataSource: GXBannerDataSource?
+    public weak var delegate: GXBannerDelegate?
     
-    var isAutoPlay: Bool = true
-    var autoTimeInterval: TimeInterval = 5.0
-    var isShowPageControl: Bool = true {
+    public var isAutoPlay: Bool = true
+    public var autoTimeInterval: TimeInterval = 5.0
+    public var isShowPageControl: Bool = true {
         didSet {
             self.pageControl.isHidden = !self.isShowPageControl
         }
@@ -52,7 +52,7 @@ public class GXBanner: UIView {
         self.bannerStop()
     }
     
-    required init(frame: CGRect = .zero, margin: CGFloat = 0, lineSpacing: CGFloat = 0, minScale: Scale = Scale()) {
+    public required init(frame: CGRect = .zero, margin: CGFloat = 0, lineSpacing: CGFloat = 0, minScale: Scale = Scale()) {
         super.init(frame: frame)
         self.flowLayout = GXBannerFlowLayout(margin: margin, lineSpacing: lineSpacing, minScale: minScale)
         self.setupSubviews()
