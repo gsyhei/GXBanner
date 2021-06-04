@@ -152,6 +152,14 @@ fileprivate extension GXBanner {
 }
 
 public extension GXBanner {
+    final func playStart() {
+        self.isAutoPlay = true
+        self.bannerPlay()
+    }
+    final func playStop() {
+        self.isAutoPlay = false
+        self.bannerStop()
+    }
     final func register<T: UICollectionViewCell>(classCellType: T.Type) {
         let cellID = String(describing: classCellType)
         self.collectionView.register(classCellType, forCellWithReuseIdentifier: cellID)

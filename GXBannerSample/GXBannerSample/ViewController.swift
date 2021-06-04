@@ -31,7 +31,7 @@ class ViewController: UIViewController {
     private var banner2: GXBanner = {
         let width = UIScreen.main.bounds.size.width
         let frame: CGRect = CGRect(x: 0, y: 400, width: width, height: 120)
-        return GXBanner(frame: frame, margin: 0, lineSpacing: 10)
+        return GXBanner(frame: frame, margin: 10, lineSpacing: 10)
     }()
 
     override func viewDidLoad() {
