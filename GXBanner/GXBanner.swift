@@ -65,12 +65,7 @@ public class GXBanner: UIView {
     public override func layoutSubviews() {
         super.layoutSubviews()
         self.collectionView.frame = self.bounds
-        var size = self.pageControl.size(forNumberOfPages: self.pageControl.numberOfPages)
-        size.width = min(self.flowLayout.itemSize.width, size.width)
-        self.pageControl.frame = CGRect(origin: .zero, size: size)
-        var center = self.center
-        center.y = self.flowLayout.itemSize.height - self.pageControl.frame.height * 0.5
-        self.pageControl.center = center
+        self.updatePageControl()
     }
     
     private func setupSubviews() {
@@ -84,6 +79,15 @@ public class GXBanner: UIView {
         self.collectionView.delegate = self
         self.addSubview(self.collectionView)
         self.addSubview(self.pageControl)
+    }
+    
+    private func updatePageControl() {
+        var size = self.pageControl.size(forNumberOfPages: self.pageControl.numberOfPages)
+        size.width = min(self.flowLayout.itemSize.width, size.width)
+        self.pageControl.frame = CGRect(origin: .zero, size: size)
+        var center = self.center
+        center.y = self.flowLayout.itemSize.height - self.pageControl.frame.height * 0.5
+        self.pageControl.center = center
     }
 }
 
@@ -185,6 +189,7 @@ public extension GXBanner {
         let count = self.dataSource?.numberOfItems() ?? 0
         self.collectionView.isUserInteractionEnabled = count > 1
         self.collectionView.reloadData()
+        self.updatePageControl()
         self.scrollToItem(realAt: 0, animated: true)
     }
     final func scrollToItem(realAt index: Int, animated: Bool) {
@@ -259,4 +264,3 @@ extension GXBanner: UIScrollViewDelegate {
         self.bannerPlay()
     }
 }
-
